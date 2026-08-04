@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard - CodeHire AI</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef2ff;
+}
+
+.navbar{
+    background:#1f2937;
+    padding:18px;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-right:25px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.navbar a:hover{
+    color:#60a5fa;
+}
+
+.container{
+    width:92%;
+    margin:auto;
+    padding:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    margin-bottom:25px;
+}
+
+.profile{
+    text-align:center;
+}
+
+.profile h1{
+    color:#2563eb;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-8px);
+}
+
+.stat-card h2{
+    margin:0;
+    font-size:42px;
+    color:#2563eb;
+}
+
+.stat-card p{
+    color:#666;
+    font-size:18px;
+}
+
+textarea{
+    width:100%;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+<a href="/dashboard">Dashboard</a>
+
+<a href="/history">History</a>
+
+<a href="#code-evaluation">Analyze Code</a>
+
+<a href="/profile">Profile</a>
+
+<a href="/logout">Logout</a>
+
+</div>
+
+<div class="container">
+
+<div class="card profile">
+
+<h1>👋 Welcome {{ username }}</h1>
+
+<p>{{ email }}</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<h2>{{ total }}</h2>
+<p>Total Analyses</p>
+</div>
+
+<div class="stat-card">
+<h2>{{ python_count }}</h2>
+<p>Python</p>
+</div>
+
+<div class="stat-card">
+<h2>{{ java_count }}</h2>
+<p>Java</p>
+</div>
+
+<div class="stat-card">
+<h2>{{ cpp_count }}</h2>
+<p>C++</p>
+</div>
+
+</div>
+<div class="card" 
+id=" code-evaluation">
+
+
+<h2>💻 Code Evaluation</h2>
+
+<form method="POST" action="/evaluate">
+
+<textarea
+name="code"
+rows="10"
+placeholder="Write your code here..."></textarea>
+
+<br><br>
+
+<button type="submit">Run Code</button>
+
+</form>
+
+</div>
+<div class="card">
+
+<h2>🤖 AI Suggestions</h2>
+
+<ul>
+<li>✔️ Improve Variable Names</li>
+<li>✔️ Reduce Time Complexity</li>
+<li>✔️ Add Comments</li>
+<li>✔️ Follow Clean Code Principles</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>🏆 Leaderboard</h2>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="10">
+
+<tr>
+<th>Rank</th>
+<th>User</th>
+<th>Score</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>{{ username }}</td>
+<td>{{ total }}</td>
+</tr>
+
+</table>
+
+</div>
+<div class="card">
+
+<h2>📊 Analysis Overview</h2>
+
+<canvas id="analysisChart"></canvas>
+
+</div>
+
+<div class="card">
+
+<h2>📄 Download Report</h2>
+
+<a href="/download_pdf">
+
+<button>Download PDF Report</button>
+
+</a>
+
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx = document.getElementById("analysisChart");
+
+if(ctx){
+
+new Chart(ctx,{
+
+type:"doughnut",
+
+data:{
+labels:["Python","Java","C++"],
+
+datasets:[{
+data:[
+{{ python_count }},
+{{ java_count }},
+{{ cpp_count }}
+],
+
+backgroundColor:[
+"#3776AB",
+"#F89820",
+"#00599C"
+]
+
+}]
+},
+
+options:{
+responsive:true
+}
+
+});
+
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Analysis Result - CodeHire AI</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    margin:0;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:25px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+h1,h2{
+    color:#2563eb;
+}
+
+.score{
+    font-size:40px;
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.info{
+    font-size:18px;
+    margin:10px 0;
+}
+
+pre{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+    white-space:pre-wrap;
+    border-left:5px solid #2563eb;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-block;
+    margin:10px 10px 0 0;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🤖 Code Analysis Result</h1>
+
+<p class="score">{{ score }}</p>
+
+<p class="info"><b>Programming Language:</b> {{ language }}</p>
+
+<p class="info"><b>Complexity:</b> {{ complexity }}</p>
+
+</div>
+
+<div class="card">
+
+<h2>📋 Analysis Result</h2>
+
+<pre>{{ result }}</pre>
+
+</div>
+
+<div class="card">
+
+<h2>💡 AI Suggestions</h2>
+
+<pre>{{ feedback }}</pre>
+
+</div>
+
+<div class="card">
+
+<h2>💻 Submitted Code</h2>
+
+<pre>{{ code }}</pre>
+
+</div>
+
+<a href="/dashboard" class="btn">🏠 Dashboard</a>
+
+<a href="/history" class="btn">📜 History</a>
+
+<a href="/download_pdf" class="btn">📄 Download PDF</a>
+
+</div>
+
+</body>
+</html>
