@@ -1,277 +1,1120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dashboard - CodeHire AI</title>
 
 <style>
 
-body{
+/* =========================
+   GLOBAL
+========================= */
+
+*{
     margin:0;
-    font-family:Arial,sans-serif;
-    background:#eef2ff;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
+
+body{
+    min-height:100vh;
+    background:#f4f7fb;
+    color:#111827;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar{
-    background:#1f2937;
-    padding:18px;
+    height:72px;
+    background:#111827;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-.navbar a{
+.logo{
     color:white;
-    text-decoration:none;
-    margin-right:25px;
+    font-size:25px;
     font-weight:bold;
-    font-size:18px;
 }
 
-.navbar a:hover{
+.logo span{
     color:#60a5fa;
 }
 
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-links a{
+    color:#d1d5db;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    background:#1f2937;
+    color:white;
+}
+
+.logout{
+    background:#dc2626 !important;
+    color:white !important;
+}
+
+.logout:hover{
+    background:#b91c1c !important;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
 .container{
-    width:92%;
+    width:90%;
+    max-width:1250px;
     margin:auto;
-    padding:25px;
+    padding:35px 0 50px;
 }
 
-.card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
-    margin-bottom:25px;
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border-radius:18px;
+    padding:35px;
+    margin-bottom:28px;
+    box-shadow:0 10px 25px rgba(37,99,235,.20);
 }
 
-.profile{
-    text-align:center;
+.welcome h1{
+    font-size:32px;
+    margin-bottom:8px;
 }
 
-.profile h1{
-    color:#2563eb;
+.welcome p{
+    color:#dbeafe;
+    font-size:16px;
 }
+
+
+/* =========================
+   STATISTICS
+========================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:20px;
+    margin-bottom:30px;
 }
 
 .stat-card{
     background:white;
-    border-radius:15px;
     padding:25px;
-    text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
-    transition:.3s;
+    border-radius:15px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 5px 18px rgba(0,0,0,.07);
+    transition:.25s;
 }
 
 .stat-card:hover{
-    transform:translateY(-8px);
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.11);
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.stat-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eff6ff;
+    font-size:21px;
 }
 
 .stat-card h2{
-    margin:0;
-    font-size:42px;
-    color:#2563eb;
+    font-size:34px;
+    color:#111827;
+    margin-bottom:5px;
 }
 
 .stat-card p{
-    color:#666;
-    font-size:18px;
+    color:#6b7280;
+    font-size:14px;
+    font-weight:bold;
 }
 
-textarea{
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:white;
+    border-radius:18px;
+    border:1px solid #e5e7eb;
+    padding:30px;
+    margin-bottom:28px;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.card-title h2{
+    color:#111827;
+    font-size:24px;
+}
+
+.card-title p{
+    color:#6b7280;
+    font-size:14px;
+    margin-top:5px;
+}
+
+
+/* =========================
+   COMPILER
+========================= */
+
+.compiler-label{
+    display:block;
+    margin-bottom:9px;
+    font-weight:bold;
+    color:#374151;
+    font-size:14px;
+}
+
+.language-select{
     width:100%;
-    padding:15px;
+    padding:14px;
+    margin-bottom:22px;
+    border:1px solid #d1d5db;
     border-radius:10px;
-    border:1px solid #ccc;
-    font-size:16px;
+    font-size:15px;
+    background:#fff;
+    outline:none;
 }
 
-button{
-    background:#2563eb;
-    color:white;
+.language-select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.10);
+}
+
+
+/* =========================
+   CODE EDITOR
+========================= */
+
+.code-editor{
+    width:100%;
+    min-height:330px;
+    padding:18px;
+    border-radius:12px;
+    border:1px solid #374151;
+    background:#0f172a;
+    color:#e5e7eb;
+    font-family:Consolas, "Courier New", monospace;
+    font-size:15px;
+    line-height:1.6;
+    resize:vertical;
+    outline:none;
+}
+
+.code-editor:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 3px rgba(96,165,250,.12);
+}
+
+.code-editor::placeholder{
+    color:#64748b;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row{
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+}
+
+.run-button{
     border:none;
-    padding:12px 25px;
-    border-radius:8px;
-    font-size:16px;
+    padding:13px 22px;
+    border-radius:9px;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
     cursor:pointer;
+    transition:.2s;
 }
 
-button:hover{
+.run-code{
+    background:#16a34a;
+}
+
+.run-code:hover{
+    background:#15803d;
+    transform:translateY(-1px);
+}
+
+.analyze-code{
+    background:#2563eb;
+}
+
+.analyze-code:hover{
     background:#1d4ed8;
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   OUTPUT TERMINAL
+========================= */
+
+.output-box{
+    margin-top:28px;
+    background:#020617;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #1e293b;
+    box-shadow:inset 0 0 20px rgba(0,0,0,.15);
+}
+
+.output-header{
+    background:#111827;
+    color:#e5e7eb;
+    padding:13px 17px;
+    font-size:14px;
+    font-weight:bold;
+    border-bottom:1px solid #1e293b;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.output-dot{
+    width:9px;
+    height:9px;
+    background:#22c55e;
+    border-radius:50%;
+}
+
+.output-content{
+    padding:20px;
+    min-height:150px;
+    color:#22c55e;
+    font-family:Consolas, "Courier New", monospace;
+    font-size:15px;
+    line-height:1.6;
+    white-space:pre-wrap;
+    overflow:auto;
+}
+
+.terminal-input{
+    background:transparent;
+    color:#f9fafb;
+    border:none;
+    border-bottom:1px solid #22c55e;
+    outline:none;
+    font-family:Consolas, "Courier New", monospace;
+    font-size:15px;
+    width:70%;
+    padding:5px;
+}
+
+.terminal-line{
+    color:#22c55e;
+    margin-bottom:8px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .navbar{
+        height:auto;
+        padding:15px 5%;
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:94%;
+        padding-top:22px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .welcome{
+        padding:25px;
+    }
+
+    .welcome h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    .card-title h2{
+        font-size:20px;
+    }
+
+    .button-row{
+        flex-direction:column;
+    }
+
+    .run-button{
+        width:100%;
+    }
+
+    .code-editor{
+        min-height:250px;
+        font-size:14px;
+    }
+
+    .nav-links a{
+        font-size:13px;
+        padding:8px 10px;
+    }
+
 }
 
 </style>
-
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
 <div class="navbar">
 
-<a href="/dashboard">Dashboard</a>
+    <div class="logo">
+        CodeHire <span>AI</span>
+    </div>
 
-<a href="/history">History</a>
+    <div class="nav-links">
 
-<a href="#code-evaluation">Analyze Code</a>
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
 
-<a href="/profile">Profile</a>
+        <a href="/history">
+            📜 History
+        </a>
 
-<a href="/logout">Logout</a>
+        <a href="#code-evaluation">
+            💻 Analyze Code
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout" class="logout">
+            🚪 Logout
+        </a>
+
+    </div>
 
 </div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
 
 <div class="container">
 
-<div class="card profile">
 
-<h1>👋 Welcome {{ username }}</h1>
+    <!-- WELCOME -->
 
-<p>{{ email }}</p>
+    <div class="welcome">
+
+        <h1>
+            Welcome back, {{ username }} 👋
+        </h1>
+
+        <p>
+            Analyze your code, improve your skills and get AI-powered suggestions.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================= -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    <h2>{{ total }}</h2>
+                    <p>Total Analyses</p>
+                </div>
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    <h2>{{ python_count }}</h2>
+                    <p>Python</p>
+                </div>
+
+                <div class="stat-icon">
+                    🐍
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    <h2>{{ java_count }}</h2>
+                    <p>Java</p>
+                </div>
+
+                <div class="stat-icon">
+                    ☕
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    <h2>{{ cpp_count }}</h2>
+                    <p>C++</p>
+                </div>
+
+                <div class="stat-icon">
+                    ⚙️
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         CODE COMPILER
+    ========================= -->
+
+    <div class="card" id="code-evaluation">
+
+
+        <div class="card-title">
+
+            <div>
+
+                <h2>
+                    💻 Code Compiler
+                </h2>
+
+                <p>
+                    Write, run and analyze your program.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- LANGUAGE -->
+
+        <label class="compiler-label">
+            Programming Language
+        </label>
+
+        <select
+            id="language"
+            class="language-select"
+        >
+
+            <option value="python">
+                Python
+            </option>
+
+            <option value="java">
+                Java
+            </option>
+
+            <option value="c">
+                C
+            </option>
+
+            <option value="cpp">
+                C++
+            </option>
+
+            <option value="javascript">
+                JavaScript
+            </option>
+
+        </select>
+
+
+        <!-- CODE -->
+
+        <label class="compiler-label">
+            Write Your Code
+        </label>
+
+        <textarea
+            id="code"
+            class="code-editor"
+            rows="15"
+            placeholder="Write your code here...
+
+Example:
+
+num = int(input())
+if num % 2 == 0:
+    print('Even')
+else:
+    print('Odd')"
+        ></textarea>
+
+
+        <!-- BUTTONS -->
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="run-button run-code"
+                onclick="startCompiler()"
+            >
+                ▶️ Run Code
+            </button>
+
+
+            <button
+                type="button"
+                class="run-button analyze-code"
+                onclick="analyzeCode()"
+            >
+                🔍 Analyze Code
+            </button>
+
+        </div>
+
+
+        <!-- OUTPUT -->
+
+        <div class="output-box">
+
+            <div class="output-header">
+
+                <span class="output-dot"></span>
+
+                OUTPUT
+
+            </div>
+
+
+            <div
+                id="compilerOutput"
+                class="output-content"
+            >
+                Run your program to see the output here...
+            </div>
+
+        </div>
+
+
+    </div>
+
 
 </div>
 
-<div class="stats">
 
-<div class="stat-card">
-<h2>{{ total }}</h2>
-<p>Total Analyses</p>
-</div>
-
-<div class="stat-card">
-<h2>{{ python_count }}</h2>
-<p>Python</p>
-</div>
-
-<div class="stat-card">
-<h2>{{ java_count }}</h2>
-<p>Java</p>
-</div>
-
-<div class="stat-card">
-<h2>{{ cpp_count }}</h2>
-<p>C++</p>
-</div>
-
-</div>
-<div class="card" 
-id=" code-evaluation">
-
-
-<h2>💻 Code Evaluation</h2>
-
-<form method="POST" action="/evaluate">
-
-<textarea
-name="code"
-rows="10"
-placeholder="Write your code here..."></textarea>
-
-<br><br>
-
-<button type="submit">Run Code</button>
-
-</form>
-
-</div>
-<div class="card">
-
-<h2>🤖 AI Suggestions</h2>
-
-<ul>
-<li>✔️ Improve Variable Names</li>
-<li>✔️ Reduce Time Complexity</li>
-<li>✔️ Add Comments</li>
-<li>✔️ Follow Clean Code Principles</li>
-
-</ul>
-
-</div>
-
-<div class="card">
-
-<h2>🏆 Leaderboard</h2>
-
-<table width="100%" border="1" cellspacing="0" cellpadding="10">
-
-<tr>
-<th>Rank</th>
-<th>User</th>
-<th>Score</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td>{{ username }}</td>
-<td>{{ total }}</td>
-</tr>
-
-</table>
-
-</div>
-<div class="card">
-
-<h2>📊 Analysis Overview</h2>
-
-<canvas id="analysisChart"></canvas>
-
-</div>
-
-<div class="card">
-
-<h2>📄 Download Report</h2>
-
-<a href="/download_pdf">
-
-<button>Download PDF Report</button>
-
-</a>
-
-</div>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
 
-const ctx = document.getElementById("analysisChart");
 
-if(ctx){
+/* =========================
+   RUN COMPILER
+========================= */
 
-new Chart(ctx,{
+async function startCompiler() {
 
-type:"doughnut",
+    const code =
+        document.getElementById("code").value;
 
-data:{
-labels:["Python","Java","C++"],
+    const language =
+        document.getElementById("language").value;
 
-datasets:[{
-data:[
-{{ python_count }},
-{{ java_count }},
-{{ cpp_count }}
-],
+    const output =
+        document.getElementById("compilerOutput");
 
-backgroundColor:[
-"#3776AB",
-"#F89820",
-"#00599C"
-]
 
-}]
-},
+    if (!code.trim()) {
 
-options:{
-responsive:true
+        output.textContent =
+            "Please write some code first.";
+
+        return;
+    }
+
+
+    let inputCount = 0;
+
+
+    /* Python */
+
+    if (language === "python") {
+
+        inputCount =
+            (code.match(/\binput\s*\(/g) || []).length;
+
+    }
+
+
+    /* Java */
+
+    else if (language === "java") {
+
+        inputCount =
+            (
+                code.match(
+                    /next(Int|Line|Double|Float)\s*\(\s*\)/g
+                ) || []
+            ).length;
+
+    }
+
+
+    /* C */
+
+    else if (language === "c") {
+
+        inputCount =
+            (
+                code.match(
+                    /\bscanf\s*\(/g
+                ) || []
+            ).length;
+
+    }
+
+
+    /* C++ */
+
+    else if (language === "cpp") {
+
+        const matches =
+            code.match(/cin\s*>>/g);
+
+        inputCount =
+            matches ? matches.length : 0;
+
+    }
+
+
+    /* JavaScript */
+
+    else if (language === "javascript") {
+
+        inputCount =
+            (
+                code.match(
+                    /\bprompt\s*\(/g
+                ) || []
+            ).length;
+
+    }
+
+
+    /* Program requires input */
+
+    if (inputCount > 0) {
+
+        collectInput(
+            code,
+            language,
+            inputCount,
+            [],
+            output
+        );
+
+    }
+
+
+    /* Program doesn't require input */
+
+    else {
+
+        await executeProgram(
+            code,
+            language,
+            "",
+            output
+        );
+
+    }
+
 }
 
-});
+
+/* =========================
+   COLLECT PROGRAM INPUT
+========================= */
+
+function collectInput(
+    code,
+    language,
+    remaining,
+    values,
+    output
+) {
+
+    output.innerHTML = "";
+
+
+    const previousValues =
+        values.join("\n");
+
+
+    if (previousValues) {
+
+        const previous =
+            document.createElement("div");
+
+        previous.className =
+            "terminal-line";
+
+        previous.textContent =
+            previousValues;
+
+        output.appendChild(previous);
+
+    }
+
+
+    const promptText =
+        document.createElement("span");
+
+    promptText.className =
+        "terminal-line";
+
+    promptText.textContent =
+        "Enter number: ";
+
+
+    const input =
+        document.createElement("input");
+
+    input.className =
+        "terminal-input";
+
+    input.type =
+        "text";
+
+    input.autocomplete =
+        "off";
+
+
+    output.appendChild(promptText);
+
+    output.appendChild(input);
+
+
+    input.focus();
+
+
+    input.addEventListener(
+        "keydown",
+        async function(event) {
+
+            if (event.key !== "Enter") {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const value =
+                input.value;
+
+
+            values.push(value);
+
+
+            input.disabled =
+                true;
+
+
+            if (remaining > 1) {
+
+                collectInput(
+                    code,
+                    language,
+                    remaining - 1,
+                    values,
+                    output
+                );
+
+            }
+
+
+            else {
+
+                output.innerHTML =
+                    values.join("\n") +
+                    "\n\nRunning program...\n";
+
+
+                await executeProgram(
+                    code,
+                    language,
+                    values.join("\n"),
+                    output
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   EXECUTE PROGRAM
+========================= */
+
+async function executeProgram(
+    code,
+    language,
+    stdin,
+    output
+) {
+
+    output.textContent =
+        "Running program...";
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "language",
+        language
+    );
+
+    formData.append(
+        "code",
+        code
+    );
+
+    formData.append(
+        "stdin",
+        stdin
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/run-code",
+                {
+                    method:"POST",
+                    body:formData
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            output.textContent =
+                result.output ||
+                "Server error: " +
+                response.status;
+
+            return;
+
+        }
+
+
+        output.textContent =
+            result.output ||
+            "Program finished with no output.";
+
+    }
+
+
+    catch(error) {
+
+        output.textContent =
+            "Execution Error: " +
+            error.message;
+
+    }
+
+}
+
+
+/* =========================
+   ANALYZE CODE
+========================= */
+
+function analyzeCode() {
+
+    const code =
+        document.getElementById("code").value;
+
+
+    if (!code.trim()) {
+
+        alert(
+            "Please write some code first."
+        );
+
+        return;
+
+    }
+
+
+    const form =
+        document.createElement("form");
+
+
+    form.method =
+        "POST";
+
+    form.action =
+        "/evaluate";
+
+
+    const textarea =
+        document.createElement("textarea");
+
+
+    textarea.name =
+        "code";
+
+    textarea.value =
+        code;
+
+
+    form.appendChild(
+        textarea
+    );
+
+
+    document.body.appendChild(
+        form
+    );
+
+
+    form.submit();
 
 }
 
 </script>
+
 </body>
+
 </html>

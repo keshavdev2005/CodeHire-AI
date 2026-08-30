@@ -1,119 +1,799 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Code Analysis Result - CodeHire AI</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Code Analysis Result - CodeHire AI</title>
 
 <style>
 
-body{
-    font-family:Arial,sans-serif;
-    background:#eef2f7;
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-.container{
-    width:90%;
-    margin:auto;
-    padding:25px;
+body{
+    background:#f4f7fb;
+    color:#111827;
+    min-height:100vh;
 }
 
-.card{
-    background:white;
-    padding:20px;
-    margin-top:20px;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+/* ============================= */
+/* NAVBAR */
+/* ============================= */
+
+.navbar{
+    height:72px;
+    background:#111827;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
 
-h1,h2{
-    color:#2563eb;
-}
-
-.score{
-    font-size:40px;
-    color:#16a34a;
+.logo{
+    color:white;
+    font-size:25px;
     font-weight:bold;
 }
 
-.info{
-    font-size:18px;
-    margin:10px 0;
+.logo span{
+    color:#60a5fa;
 }
 
-pre{
-    background:#f8fafc;
-    padding:15px;
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-links a{
+    color:#d1d5db;
+    text-decoration:none;
+    padding:10px 15px;
     border-radius:8px;
-    overflow:auto;
-    white-space:pre-wrap;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.nav-links a:hover{
+    background:#1f2937;
+    color:white;
+}
+
+.logout{
+    background:#dc2626;
+    color:white !important;
+}
+
+.logout:hover{
+    background:#b91c1c !important;
+}
+
+
+/* ============================= */
+/* MAIN CONTAINER */
+/* ============================= */
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:auto;
+    padding:40px 0 60px;
+}
+
+
+/* ============================= */
+/* PAGE HEADER */
+/* ============================= */
+
+.page-header{
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    font-size:34px;
+    color:#111827;
+    margin-bottom:8px;
+}
+
+.page-header p{
+    color:#6b7280;
+    font-size:16px;
+}
+
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:25px;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+
+/* ============================= */
+/* SECTION TITLE */
+/* ============================= */
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.section-icon{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    background:#eff6ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.section-title h2{
+    margin:0;
+    color:#111827;
+    font-size:23px;
+}
+
+.section-title p{
+    margin-top:5px;
+    color:#6b7280;
+    font-size:14px;
+}
+
+
+/* ============================= */
+/* TOP INFORMATION */
+/* ============================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.info-box{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.info-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:#eff6ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+}
+
+.info-label{
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.info-value{
+    color:#111827;
+    font-size:20px;
+    font-weight:bold;
+}
+
+
+/* ============================= */
+/* SCORE */
+/* ============================= */
+
+.score-card{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border:none;
+    position:relative;
+    overflow:hidden;
+}
+
+.score-card::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    right:-80px;
+    top:-80px;
+}
+
+.score-content{
+    position:relative;
+    z-index:2;
+}
+
+.score-label{
+    font-size:16px;
+    color:#dbeafe;
+    margin-bottom:8px;
+}
+
+.score{
+    font-size:58px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.score-description{
+    color:#dbeafe;
+    font-size:14px;
+}
+
+
+/* ============================= */
+/* ANALYSIS RESULT */
+/* ============================= */
+
+.result-box{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
     border-left:5px solid #2563eb;
+    border-radius:12px;
+    padding:20px;
+}
+
+.result-box pre{
+    margin:0;
+    color:#374151;
+    font-family:Consolas,monospace;
+    font-size:14px;
+    line-height:1.7;
+    white-space:pre-wrap;
+    overflow:auto;
+}
+
+
+/* ============================= */
+/* AI SUGGESTIONS */
+/* ============================= */
+
+.suggestions-card{
+    border:1px solid #dbeafe;
+}
+
+.ai-badge{
+    display:inline-block;
+    background:#eef2ff;
+    color:#3730a3;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.suggestions-content{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.suggestion-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:16px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-left:4px solid #2563eb;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.suggestion-item:hover{
+    transform:translateX(4px);
+    box-shadow:0 5px 15px rgba(37,99,235,.10);
+}
+
+.suggestion-icon{
+    font-size:20px;
+    min-width:25px;
+}
+
+.suggestion-text{
+    color:#374151;
+    font-size:15px;
+    line-height:1.6;
+}
+
+
+/* ============================= */
+/* SUBMITTED CODE */
+/* ============================= */
+
+.code-box{
+    background:#111827;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #374151;
+}
+
+.code-header{
+    background:#1f2937;
+    color:#dbeafe;
+    padding:14px 18px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.code-box pre{
+    margin:0;
+    padding:22px;
+    color:#f9fafb;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.7;
+    white-space:pre-wrap;
+    overflow:auto;
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.button-area{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:10px;
 }
 
 .btn{
-    background:#2563eb;
-    color:white;
-    padding:12px 20px;
-    border-radius:8px;
-    text-decoration:none;
     display:inline-block;
-    margin:10px 10px 0 0;
+    padding:13px 20px;
+    border-radius:9px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+    transition:.2s;
 }
 
 .btn:hover{
-    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.dashboard-btn{
+    background:#2563eb;
+}
+
+.history-btn{
+    background:#374151;
+}
+
+.pdf-btn{
+    background:#dc2626;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        height:auto;
+        padding:15px 5%;
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .container{
+        width:94%;
+        padding:25px 0 40px;
+    }
+
+    .page-header h1{
+        font-size:27px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:22px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
+
+<!-- ============================= -->
+<!-- NAVBAR -->
+<!-- ============================= -->
+
+<div class="navbar">
+
+    <div class="logo">
+        CodeHire <span>AI</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="/history">
+            📜 History
+        </a>
+
+        <a href="/profile">
+            👤 Profile
+        </a>
+
+        <a href="/logout" class="logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- MAIN -->
+<!-- ============================= -->
 
 <div class="container">
 
-<div class="card">
 
-<h1>🤖 Code Analysis Result</h1>
+    <!-- PAGE HEADER -->
 
-<p class="score">{{ score }}</p>
+    <div class="page-header">
 
-<p class="info"><b>Programming Language:</b> {{ language }}</p>
+        <h1>
+            🤖 Code Analysis Result
+        </h1>
 
-<p class="info"><b>Complexity:</b> {{ complexity }}</p>
+        <p>
+            Review your code quality, complexity and AI-powered suggestions.
+        </p>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- BASIC INFORMATION -->
+    <!-- ============================= -->
+
+    <div class="card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                📊
+            </div>
+
+            <div>
+
+                <h2>
+                    Analysis Overview
+                </h2>
+
+                <p>
+                    Summary of your submitted code
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    💻
+                </div>
+
+                <div>
+
+                    <div class="info-label">
+                        Programming Language
+                    </div>
+
+                    <div class="info-value">
+                        {{ language }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    📈
+                </div>
+
+                <div>
+
+                    <div class="info-label">
+                        Complexity
+                    </div>
+
+                    <div class="info-value">
+                        {{ complexity }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    ✅
+                </div>
+
+                <div>
+
+                    <div class="info-label">
+                        Analysis Status
+                    </div>
+
+                    <div class="info-value">
+                        Completed
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- SCORE -->
+    <!-- ============================= -->
+
+    <div class="card score-card">
+
+        <div class="score-content">
+
+            <div class="score-label">
+                Code Quality Score
+            </div>
+
+            <div class="score">
+                {{ score }}
+            </div>
+
+            <div class="score-description">
+                AI-powered code evaluation based on code quality,
+                structure and programming practices.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- ANALYSIS -->
+    <!-- ============================= -->
+
+    <div class="card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                📋
+            </div>
+
+            <div>
+
+                <h2>
+                    Code Analysis
+                </h2>
+
+                <p>
+                    Detailed analysis of your submitted code
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-box">
+
+            <pre>{{ result }}</pre>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- AI SUGGESTIONS -->
+    <!-- ============================= -->
+
+    <div class="card suggestions-card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h2>
+                    AI Suggestions
+                </h2>
+
+                <p>
+                    Recommendations to improve your code
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ai-badge">
+            ✨ AI POWERED
+        </div>
+
+
+        <div class="suggestions-content">
+
+            {% for suggestion in feedback.split('\n') %}
+
+                {% if suggestion.strip() %}
+
+                <div class="suggestion-item">
+
+                    <div class="suggestion-icon">
+                        💡
+                    </div>
+
+                    <div class="suggestion-text">
+                        {{ suggestion }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- SUBMITTED CODE -->
+    <!-- ============================= -->
+
+    <div class="card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                💻
+            </div>
+
+            <div>
+
+                <h2>
+                    Submitted Code
+                </h2>
+
+                <p>
+                    Your original submitted program
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="code-box">
+
+            <div class="code-header">
+                SOURCE CODE
+            </div>
+
+            <pre>{{ code }}</pre>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- ACTION BUTTONS -->
+    <!-- ============================= -->
+
+    <div class="button-area">
+
+        <a
+            href="/dashboard"
+            class="btn dashboard-btn"
+        >
+            🏠 Dashboard
+        </a>
+
+
+        <a
+            href="/history"
+            class="btn history-btn"
+        >
+            📜 View History
+        </a>
+
+
+        <a
+            href="/download_pdf"
+            class="btn pdf-btn"
+        >
+            📄 Download PDF
+        </a>
+
+    </div>
+
 
 </div>
 
-<div class="card">
-
-<h2>📋 Analysis Result</h2>
-
-<pre>{{ result }}</pre>
-
-</div>
-
-<div class="card">
-
-<h2>💡 AI Suggestions</h2>
-
-<pre>{{ feedback }}</pre>
-
-</div>
-
-<div class="card">
-
-<h2>💻 Submitted Code</h2>
-
-<pre>{{ code }}</pre>
-
-</div>
-
-<a href="/dashboard" class="btn">🏠 Dashboard</a>
-
-<a href="/history" class="btn">📜 History</a>
-
-<a href="/download_pdf" class="btn">📄 Download PDF</a>
-
-</div>
 
 </body>
+
 </html>
