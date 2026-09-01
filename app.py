@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Response, session,send_file, jsonify
+from flask import Flask, render_template, request, redirect, url_for, Response, session,send_file, jsonify, send_from_directory
 import sqlite3
 import csv
 import ast
@@ -11,6 +11,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+
+@app.route("/google9d62f1cfb5476644.html")
+def google_verification():
+    return send_from_directory(
+        app.root_path,
+        "google9d62f1cfb5476644.html"
+    )
 app.secret_key = "codehireai123"
 
 def send_otp_email(receiver_email, otp):
