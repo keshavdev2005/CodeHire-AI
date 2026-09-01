@@ -18,6 +18,13 @@ def google_verification():
         app.root_path,
         "google9d62f1cfb5476644.html"
     )
+
+@app.route("/robots.txt")
+def robots():
+    return """User-agent: *
+Allow: /
+
+Sitemap: https://codehire-ai-in.onrender.com/sitemap.xml"""
 app.secret_key = "codehireai123"
 
 def send_otp_email(receiver_email, otp):
