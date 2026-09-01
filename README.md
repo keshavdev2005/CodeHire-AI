@@ -96,7 +96,10 @@ Open the application in your browser at:
 
 http://127.0.0.1:5000
 
-🌐 Deployment
+🌐 Live Demo
+
+CodeHire AI:
+https://codehire-ai-in.onrender.com
 
 The application is deployed using Render and connected with the GitHub repository for deployment.
 
@@ -115,4 +118,4 @@ The main objective of CodeHire AI is to provide a practical platform where users
 
 Keshav Dev
 
-BCA Student | Python & Flask Developer | Aspiring Software Developer
+BCA Student | Python & Flask Developer | Aspiring Web Developer
