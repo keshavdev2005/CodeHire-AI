@@ -55,7 +55,6 @@ CodeHire-AI/
 │
 ├── app.py
 ├── requirements.txt
-├── users.db
 ├── README.md
 │
 └── templates/
